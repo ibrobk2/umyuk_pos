@@ -40,7 +40,7 @@
 
 ?>
     <form action="index.php" class="form w-50 m-auto mt-5" method="post">
-        <h2 class="text-center text-primary">Add User</h2>
+        <h2 class="text-center text-success">Add User</h2>
         <div class="mb-3">
         <label for="" class="form-label">Full Name</label>
         <input
@@ -116,7 +116,7 @@
         />
         </div>
 
-        <button type="submit" class="btn btn-primary mt-3 w-100" name="add_user">Add User</button>
+        <button type="submit" class="btn btn-success mt-3 w-100" name="add_user">Add User</button>
    
     </div>
 

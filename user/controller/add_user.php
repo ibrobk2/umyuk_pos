@@ -11,6 +11,10 @@
 <?php
 
 require_once("../../connection/index.php");
+
+include_once("sendMail.php");
+
+
 $errors = array();
 
 if(isset($_POST['add_user'])){
@@ -72,29 +76,33 @@ if(isset($_POST['add_user'])){
         $result = $server->query($sql2);
 
         if($result){
-            // echo "
-            //     <script>
-            //  swal('Done!', 'User Added Successfully', 'success',)
-            //    .then(function(result){
-            //         if(result){
-            //             window.location = '../../auth/login';
-            //         }
-            //       });
-                
-               
-            //     </script>
-            // ";
+    
 
-            echo "<script>
-            swal('Done!', 'User Added Successfully', 'success');
-            function x(){
-                location.replace('../../auth/login');
-            }
-            
-            setTimeout(x,2000);
 
+           
+            $host = 'smtp.gmail.com';
+            $senderEmail = 'ibrobk12@gmail.com';
+            $receiverEmail = $email;
+            $senderPassword = 'gykqgtbhqtyjiedf';
+            $message = 'Welcome to UMYU IMS, your OTP Code is <b>'.$token.'</b>';
+            $sentresponse = "<script>
+                    swal('Done!', 'Registration Successful, Verification Code sent to your email', 'success');
+                    function x(){
+                        location.replace('../../auth/email_verify.php?email={$email}');
+                    }
+                    setTimeout(x, 2000);
             </script>";
+           
+           
+
+            sendMail($host, $senderEmail, $receiverEmail,$senderPassword,$message, $sentresponse);
         }
+    }else{
+        echo "<script>
+        swal('Error!', 'Failed to Resgister User', 'error');
+       
+        
+          </script>";
     }
 
 
