@@ -20,11 +20,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $product_name = $_POST["product_name"];
     $product_price = $_POST["product_price"];
     $product_quantity = $_POST["product_quantity"];
+    $product_category = $_POST['category'];
 
     // Validate input if needed
 
     // Add product to the database
-    if (addProduct($conn, $product_name, $product_price, $product_quantity)) {
+    if (addProduct($server, $product_name, $product_category, $product_price, $product_quantity)){
         echo "Product added successfully!";
     } else {
         echo "Error adding product.";
@@ -64,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="number" class="form-control" id="product_quantity" name="product_quantity" required>
         </div>
         <button type="submit" class="btn btn-success w-100">Add Product</button>
-        <a href="../" class="btn btn-primary btn-md mt-3 w-100">&lt;Back to Dashboard</a>
+        <a href="../" class="btn btn-primary btn-md mt-3 w-100">Back to Dashboard</a>
 
     </form>
 </div>

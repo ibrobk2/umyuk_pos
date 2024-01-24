@@ -11,13 +11,19 @@ if(isset($_POST['login_btn'])){
     $stmt->bind_param('s', $username);
     $result = $stmt->execute();
     $res = $stmt->get_result();
-    echo $counter = $res->num_rows;
+    $counter = $res->num_rows;
     if($counter>0){
         $data = $res->fetch_assoc();
+        $email = $data['email'];
         if(password_verify($password, $data['password'])){
-            session_start();
-            $_SESSION['data'] = $data;
-            header("Location: ../dashboard");
+           $db_status = $data['status'];
+           if($db_status=='active'){
+                session_start();
+                $_SESSION['data'] = $data;
+                header("Location: ../dashboard");
+           }else{
+                header("Location: email_verify.php?email=$email");
+           }
         }else{
             echo "Invalid password";
         }
