@@ -14,6 +14,14 @@ require_once("../../connection/index.php");
 
 include_once("sendMail.php");
 
+ // Variable declarations
+ $full_name = "";
+ $username = "";
+ $email = "";
+ $role = "";
+ $password = "";
+ $cpassword = "";
+
 
 $errors = array();
 
@@ -72,6 +80,7 @@ if(isset($_POST['add_user'])){
     if(count($errors)==0){
         $randNum = rand()*1000000;
         $token = substr($randNum,0,6);
+        $password = password_hash($password, PASSWORD_DEFAULT);
         $sql2 = "INSERT INTO users(`full_name`, `username`, `password`, `role`, `email`, `token`) VALUES('$full_name', '$username', '$password', '$role', '$email', $token)";
         $result = $server->query($sql2);
 

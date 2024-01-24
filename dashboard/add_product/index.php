@@ -64,6 +64,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="number" class="form-control" id="product_quantity" name="product_quantity" required>
         </div>
         <button type="submit" class="btn btn-success w-100">Add Product</button>
+        <a href="../" class="btn btn-primary btn-md mt-3 w-100">&lt;Back to Dashboard</a>
+
     </form>
 </div>
 

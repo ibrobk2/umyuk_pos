@@ -48,6 +48,7 @@
             class="form-control"
             name="fname"
             id=""
+            value="<?=$full_name; ?>"
            
             placeholder="Enter Full Name"
         />
@@ -61,6 +62,7 @@
             class="form-control"
             name="username"
             id=""
+            value="<?=$username; ?>"
            
             placeholder="Enter Username"
         />
@@ -75,6 +77,7 @@
             class="form-control"
             name="email"
             id=""
+            value="<?=$email; ?>"
            
             placeholder="Enter Email"
         />
@@ -84,9 +87,13 @@
     <div class="mb-3">
         <label for="" class="form-label">Role</label>
        <select name="role" id="" class="form-select">
-            <option value="">Select</option>
+        <?php if($role=="") : ?>
+            <option value="" >Select</option>
             <option value="Admin">Admin</option>
             <option value="Staff">Staff</option>
+        <?php else: ?>
+            <option  value="<?=$role; ?>"><?=$role; ?></option>
+        <?php endif; ?>
        </select>
     </div>
 
@@ -97,6 +104,7 @@
             class="form-control"
             name="pass"
             id=""
+           
            
             placeholder="Enter Password"
         />
@@ -111,6 +119,7 @@
             class="form-control"
             name="cpass"
             id=""
+            
            
             placeholder="Enter Password"
         />

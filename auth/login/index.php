@@ -10,7 +10,7 @@
     <div class="container">
             <img src="../../assets/images/umyu.jpg" alt="" style="display: block;" class="m-auto mt-5">
    
-            <form action="./auth/login.php" class="form w-50 m-auto mt-5" method="post">
+            <form action="../login.php" class="form w-50 m-auto mt-5" method="post">
                 <h2 class="text-center text-success">User Login</h2>
             <div class="mb-3">
                 <label for="" class="form-label">Username</label>
