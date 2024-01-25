@@ -1,11 +1,12 @@
 <?php
-// Assuming $conn is the database connection
+// Assuming $server is the database connection
 include_once("../../connection/index.php");
 
 // Function to fetch all products from the database
-function getAllProducts($conn) {
+function getAllProducts($server) {
+    include_once("../../connection/index.php");
     $sql = "SELECT * FROM product";
-    $result = $conn->query($sql);
+    $result = $server->query($sql);
 
     if ($result->num_rows > 0) {
         return $result->fetch_all(MYSQLI_ASSOC);
@@ -15,9 +16,10 @@ function getAllProducts($conn) {
 }
 
 // Function to delete a product from the database
-function deleteProduct($conn, $productId) {
+function deleteProduct($server, $productId) {
+    include_once("../../connection/index.php");
     $sql = "DELETE FROM product WHERE product_id = ?";
-    $stmt = $conn->prepare($sql);
+    $stmt = $server->prepare($sql);
     $stmt->bind_param("i", $productId);
 
     return $stmt->execute();
@@ -28,14 +30,14 @@ if (isset($_POST["delete_product"])) {
     $deleteProductId = $_POST["delete_product_id"];
 
     // Delete product from the database
-    if (deleteProduct($conn, $deleteProductId)) {
+    if (deleteProduct($server, $deleteProductId)) {
         echo "Product deleted successfully!";
     } else {
         echo "Error deleting product.";
     }
 }
 
-$products = getAllProducts($conn);
+$products = getAllProducts($server);
 ?>
 
 <!DOCTYPE html>
@@ -65,16 +67,16 @@ $products = getAllProducts($conn);
         <tbody>
             <?php foreach ($products as $product): ?>
                 <tr>
-                    <td><?php echo $product["id"]; ?></td>
+                    <td><?php echo $product["product_id"]; ?></td>
                     <td><?php echo $product["product_name"]; ?></td>
                     <td><?php echo $product["product_category"]; ?></td>
                     <td><?php echo $product["price"]; ?></td>
                     <td><?php echo $product["quantity"]; ?></td>
                     <td><?php echo $product["created_on"]; ?></td>
                     <td>
-                        <a href="edit_product.php?id=<?php echo $product["id"]; ?>" class="btn btn-primary btn-sm">Edit</a>
+                        <a href="../add_product/?edit=<?php echo $product["product_id"]; ?>" class="btn btn-primary btn-sm">Edit</a>
                         <form method="post" style="display: inline;">
-                            <input type="hidden" name="delete_product_id" value="<?php echo $product["id"]; ?>">
+                            <input type="hidden" name="delete_product_id" value="<?php echo $product["product_id"]; ?>">
                             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
                         </form>
                     </td>

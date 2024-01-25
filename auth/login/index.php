@@ -7,6 +7,18 @@
     <title>UMYUK POS:: Login Page</title>
 </head>
 <body>
+    <?php
+
+if(isset($_GET['login'])){
+ 
+    echo "
+        <script>
+            alert('You must Login first to Access Dashboard!');
+        </script>
+    ";
+}
+
+?>
     <div class="container">
             <img src="../../assets/images/umyu.jpg" alt="" style="display: block;" class="m-auto mt-5">
    

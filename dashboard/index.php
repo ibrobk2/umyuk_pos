@@ -25,6 +25,11 @@
 <body id="page-top">
     <?php
     session_start();
+
+    if(!isset($_SESSION['data'])){
+        header("Location: ../auth/login/?login=false");
+    }
+
     $full_name = $_SESSION['data']['full_name'];
     $role = $_SESSION['data']['role'];
 
@@ -136,9 +141,9 @@
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
+                <a class="nav-link" href="../auth/logout.php">
+                    <i class="fas fa-fw fa-lock"></i>
+                    <span>Logout</span></a>
             </li>
 
             <!-- Divider -->
@@ -375,8 +380,8 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                        <a href="../auth/logout.php" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i
+                                class="fas fa-lock fa-sm text-white-50"></i> Logout</a>
                     </div>
 
                     <!-- Content Row -->
