@@ -11,15 +11,24 @@
 <div class="container mt-5">
     <h2 class="mb-4">Sales Form</h2>
     
-    <form>
+    <form action="" method="get" >
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="product">Product</label>
                 <select class="form-control" id="product" name="product">
                     <option selected>Select Product</option>
-                    <option>Product 1</option>
-                    <option>Product 2</option>
-                    <option>Product 3</option>
+                    <?php
+                         include_once("../../auth/core.php"); 
+                         include_once("../../connection/index.php");
+
+                         $products = getAllProducts($server);
+                        foreach($products as $product):
+
+                    ?>
+                    <option value="<?=$product['product_name'];?>"><?=$product['product_name'];?></option>
+
+                    <?php endforeach; ?>
+                   
                     <!-- Add more products as needed -->
                 </select>
             </div>

@@ -2,40 +2,7 @@
 // Assuming $server is the database connection
 include_once("../../connection/index.php");
 
-// Function to fetch all products from the database
-function getAllProducts($server) {
-    include_once("../../connection/index.php");
-    $sql = "SELECT * FROM product";
-    $result = $server->query($sql);
-
-    if ($result->num_rows > 0) {
-        return $result->fetch_all(MYSQLI_ASSOC);
-    } else {
-        return [];
-    }
-}
-
-// Function to delete a product from the database
-function deleteProduct($server, $productId) {
-    include_once("../../connection/index.php");
-    $sql = "DELETE FROM product WHERE product_id = ?";
-    $stmt = $server->prepare($sql);
-    $stmt->bind_param("i", $productId);
-
-    return $stmt->execute();
-}
-
-// Check if delete button is clicked
-if (isset($_POST["delete_product"])) {
-    $deleteProductId = $_POST["delete_product_id"];
-
-    // Delete product from the database
-    if (deleteProduct($server, $deleteProductId)) {
-        echo "Product deleted successfully!";
-    } else {
-        echo "Error deleting product.";
-    }
-}
+include_once("../../auth/core.php");
 
 $products = getAllProducts($server);
 ?>
@@ -49,35 +16,41 @@ $products = getAllProducts($server);
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-
+<a href="../" class="btn btn-primary">Back to Dashboard</a>
 <div class="container mt-5">
     <h2>Manage Products</h2>
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>ID</th>
+                <th>SNO.</th>
+                <th>Product ID</th>
                 <th>Product Name</th>
                 <th>Product Category</th>
                 <th>Price</th>
                 <th>Quantity</th>
+                <th>Total</th>
                 <th>Created On</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($products as $product): ?>
+            <?php 
+            $sn = 1;
+            foreach ($products as $product): ?>
                 <tr>
-                    <td><?php echo $product["product_id"]; ?></td>
+                    <td><?php echo $sn++; ?></td>
+                    <td><?php echo "2024".$product["product_id"]; ?></td>
                     <td><?php echo $product["product_name"]; ?></td>
                     <td><?php echo $product["product_category"]; ?></td>
                     <td><?php echo $product["price"]; ?></td>
                     <td><?php echo $product["quantity"]; ?></td>
+                    <td><?php echo $product["quantity"]*$product["price"]; ?></td>
                     <td><?php echo $product["created_on"]; ?></td>
                     <td>
                         <a href="../add_product/?edit=<?php echo $product["product_id"]; ?>" class="btn btn-primary btn-sm">Edit</a>
                         <form method="post" style="display: inline;">
                             <input type="hidden" name="delete_product_id" value="<?php echo $product["product_id"]; ?>">
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to Delete?')" name="delete_product">Delete</button>
                         </form>
                     </td>
                 </tr>

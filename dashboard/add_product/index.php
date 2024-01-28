@@ -82,8 +82,8 @@ function getProductDetails($server, $id) {
 
 if(isset($_POST['update_btn'])){
     $product_name = $_POST["product_name"];
-    $product_price = $_POST["product_price"];
-    $product_quantity = $_POST["product_quantity"];
+    $price = $_POST["product_price"];
+    $quantity = $_POST["product_quantity"];
     $product_category = $_POST['product_category'];
     $id = $_POST['hidden'];
 
