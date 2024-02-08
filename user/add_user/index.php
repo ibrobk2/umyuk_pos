@@ -21,6 +21,7 @@
 </head>
 <body>
     <?php
+    include_once("../../auth/core.php");
     include_once("../controller/add_user.php");
     include_once("../../connection/index.php");
 

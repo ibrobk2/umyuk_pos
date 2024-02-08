@@ -50,6 +50,8 @@ $products = getAllUsers($server);
 </head>
 <body>
 
+<?php include_once("../../auth/core.php"); ?>
+
 <div class="container mt-5">
     <h2>Manage Users</h2>
     <table class="table table-bordered">

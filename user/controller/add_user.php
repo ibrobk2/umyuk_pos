@@ -12,6 +12,7 @@
 
 require_once("../../connection/index.php");
 
+
 include_once("sendMail.php");
 
  // Variable declarations
